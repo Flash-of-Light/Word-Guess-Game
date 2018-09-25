@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New This</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body><!-- style="background-image: url(https://static.vecteezy.com/system/resources/previews/000/098/705/non_2x/dinosaur-background-vector.jpg);">-->
+  <h1>Dinosaur Word Guess</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 box">
+            <h2>Press Any Key to Get Started</h2>
+          </div>
+        </div>
+        <img src="https://orig00.deviantart.net/852e/f/2013/175/2/e/velociraptor_by_klausboss-d6agsft.png" style="height:256px;width:427px;">
+        <div class="row">
+          <div class="col-md-6 box">
+            <h3>Current Dino:</h3>
+            <span id="theRandomWord"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 box">
+            <h3>Letters Guessed:</h3>
+            <span id="lettGuess"></span>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 box">
+              <h3>Guesses Left:</h3>
+              <span id="left"></span>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-md-12 box">
+              <h3>Wins:</h3>
+              <span id="wins"></span>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 box">
+            <h3>Losses:</h3>
+            <span id="losses"></span>
+          </div>
+        </div>
+      </div>
+
+<script>
+// laying out the variables
+  var win = 0;
+  var losses = 0;
+  var guesCount = 12
+  var arraycount = 0;
+  var guessArr = [];
+  var guessBool = true;
+  var repeat = false;
+  
+//1. press a button to start the game
+addEventListener("keypress",keyPress);
+
+//2. have a list of dinosaurs to choose from
+var dinosaurs = ["velociraptor", "tyrannosaurus", "pterodactyl", "triceratops", "stegosaurus", "utahraptor", "pteranodon"];
+
+// 3. randomly choose a word from the list
+var theRandomWord = dinosaurs[Math.floor(Math.random() * dinosaurs.length)];
+//console.log(theRandomWord); //(is step 3 working?) 
+
+// connect the variables to bootstrap so they can be modified
+var lettSpan = document.querySelector("#lettGuess");
+var wordSpan = document.querySelector("#theRandomWord");
+var win = document.querySelector("#wins");
+var losses = document.querySelector("#losses");
+var guescount = document.querySelector("#left");
+
+theRandomWord.innerHTML = theRandomWord;
+win.innerHTML = 0;
+losses.innerHTML = 0;
+left.innerHTML = 12;
+//console.log(win);
+//console.log(losses);
+//console.log(left);
+
+//4. add this word to the _ _ _ _ _ area
+var blankspace = [];
+
+for(var i = 0; i < theRandomWord.length; i++){
+    blankspace[i] = "_ ";
+}
+
+document.querySelector("#theRandomWord").innerHTML = blankspace.join("");
+//console.log(theRandomWord);
+    
+// 5. detect the letters and match them to the word
+var keyPress = function(event){
+    console.log(event.key);
+
+// 6. can't guess the same letter again
+    for(var i = 0; i < guessArr.length; i++){
+        if(event.key === guessArr[i]){
+            repeat = true;
+        }
+        else{
+            repeat = false;
+        }
+    }
+//7. if letter is correct reveal in the word
+    if(repeat === false){
+        var guesCount = 12;
+
+      for(var i = 0; i < theRandomWord.length; i++){
+            
+        var element = document.querySelector("theRandomWord")
+        if(event.key === theRandomWord[i]){
+                
+          blankspace[i] = theRandomWord[i];
+          guesCount--;
+          arrayCount = arrayCount+1;
+        }
+      }
+// 8. Update the game state with the guess
+      if(guesCount === 0){
+        guessBool = false;
+      }
+      else if(guesCount > 0){
+        guessBool = true;
+      }
+    
+      guessArr.push(String.fromCharCode(event.keyCode));
+            
+      if(guessBool === true){
+        console.log(numGuess);
+      }
+      else if(guessBool === false){
+        numGuess = numGuess - 1; 
+        console.log(numGuess);
+      }
+        console.log(guesCount);
+        console.log(arrayCount);
+        console.log(theRandomWord.length);
+        console.log(guessArr);
+}
+    else if(repeat === true){
+      console.log("Already guessed this letter, please try again");
+    }
+
+//9. if guess word, add to win and give message.
+    if(arrayCount === ((letterArr.length))){
+      win++;
+      window.location.reload(false);
+    }
+   
+   var lettSpan = document.querySelector("#lettGuess");
+
+   lettSpan.innerHTML = guessArr.join(' ');
+
+    document.querySelector("#theRandomWord").innerHTML = blankspace.join("");
+  
+}
+    //10. if letter is incorrect subtract from guesses left
+
+    //11. if guesses = 0 then lose, add to loss column and give message
+
+    //12. make game resettable but keep track of win/loss 
+  
+  </script>
+</body>
+</html>
